@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:chat/const.dart';
 import 'package:chat/models/user_profile.dart';
 import 'package:chat/services/alert_service.dart';
@@ -29,7 +30,9 @@ class _RegisterPageState extends State<RegisterPage> {
   late AlertService _alertService;
   late DatabaseService _databaseService;
 
-  String? email, password, name;
+  String? email;
+  String? name;
+  String? password;
   File? selectedImage;
   bool isLoading = false;
 
@@ -62,14 +65,14 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           children: [
             _headerText(),
-            /*if (!isLoading)*/ _registerForm(),
-            /*if (!isLoading)*/ _loginAccountLink(),
-            if (!isLoading)
-              const Expanded(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              )
+            if (!isLoading) _registerForm(),
+            if (!isLoading) _loginAccountLink(),
+            // if (!isLoading)
+            //   const Expanded(
+            //     child: Center(
+            //       child: CircularProgressIndicator(),
+            //     ),
+            //   )
           ],
         ),
       ),
@@ -115,7 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
             CustomFormField(
                 hintText: "İsim",
                 height: MediaQuery.sizeOf(context).height * 0.1,
-                validationRegEx: NAME_VALIDATION_REGEX,
+                //validationRegEx: NAME_VALIDATION_REGEX,
                 onSaved: (value) {
                   setState(() {
                     name = value;
@@ -124,7 +127,7 @@ class _RegisterPageState extends State<RegisterPage> {
             CustomFormField(
                 hintText: "E-Posta",
                 height: MediaQuery.sizeOf(context).height * 0.1,
-                validationRegEx: EMAIL_VALIDATION_REGEX,
+                //validationRegEx: EMAIL_VALIDATION_REGEX,
                 onSaved: (value) {
                   setState(() {
                     email = value;
@@ -133,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
             CustomFormField(
               hintText: "Şifre",
               height: MediaQuery.sizeOf(context).height * 0.1,
-              validationRegEx: PASSWORD_VALIDATION_REGEX,
+              //validationRegEx: PASSWORD_VALIDATION_REGEX,
               obscureText: true,
               onSaved: (value) {
                 setState(
@@ -177,11 +180,10 @@ class _RegisterPageState extends State<RegisterPage> {
         color: Theme.of(context).colorScheme.primary,
         onPressed: () async {
           setState(() {
-            isLoading = true;
+            isLoading = false;
           });
           try {
-            if ((_registerFormKey.currentState?.validate() ?? false) &&
-                selectedImage != null) {
+            if ((_registerFormKey.currentState?.validate() ?? false)) {
               _registerFormKey.currentState?.save();
               bool result = await _authService.signup(email!, password!);
               if (result) {
@@ -211,11 +213,8 @@ class _RegisterPageState extends State<RegisterPage> {
             }
           } catch (e) {
             print(e);
-            _alertService.showToast(text: "Kayıt başarılı!", icon: Icons.check);
-            _navigationService.goBack();
-            _navigationService.pushReplacementNamed("/login");
-            //_alertService.showToast(
-            //    text: "Hata, lütfen tekrar deneyiniz!", icon: Icons.error);
+            _alertService.showToast(
+                text: "Hata, lütfen tekrar deneyiniz!", icon: Icons.error);
           }
           setState(() {
             isLoading = false;

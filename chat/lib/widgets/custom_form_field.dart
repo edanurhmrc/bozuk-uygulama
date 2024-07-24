@@ -1,10 +1,9 @@
-import 'package:chat/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 class CustomFormField extends StatelessWidget {
   final String hintText;
   final double height;
-  final RegExp validationRegEx;
+  //final RegExp validationRegEx;
   final bool obscureText;
   final void Function(String?) onSaved;
 
@@ -12,7 +11,7 @@ class CustomFormField extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.height,
-    required this.validationRegEx,
+    //required this.validationRegEx,
     required this.onSaved,
     this.obscureText = false,
   });
@@ -24,12 +23,12 @@ class CustomFormField extends StatelessWidget {
       child: TextFormField(
         onSaved: onSaved,
         obscureText: obscureText,
-        validator: (value) {
-          if (value != null && validationRegEx.hasMatch(value)) {
-            return null;
-          }
-          //return "Lütfen geçerli bir ${hintText.toLowerCase()} giriniz";
-        },
+        // validator: (value) {
+        //   if (value != null && validationRegEx.hasMatch(value)) {
+        //     return null;
+        //   }
+        //   //return "Lütfen geçerli bir ${hintText.toLowerCase()} giriniz";
+        // },
         decoration: InputDecoration(
           hintText: hintText,
           border: const OutlineInputBorder(),

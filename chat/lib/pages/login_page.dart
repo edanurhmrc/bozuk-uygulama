@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
               CustomFormField(
                 height: MediaQuery.sizeOf(context).height * 0.1,
                 hintText: "E-Posta",
-                validationRegEx: EMAIL_VALIDATION_REGEX,
+                //validationRegEx: EMAIL_VALIDATION_REGEX,
                 onSaved: (value) {
                   setState(() {
                     email = value;
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
               CustomFormField(
                 height: MediaQuery.sizeOf(context).height * 0.1,
                 hintText: "Şifre",
-                validationRegEx: PASSWORD_VALIDATION_REGEX,
+                //validationRegEx: PASSWORD_VALIDATION_REGEX,
                 obscureText: true,
                 onSaved: (value) {
                   setState(() {
